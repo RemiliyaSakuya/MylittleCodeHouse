@@ -1,0 +1,18 @@
+int main()
+{
+	int n;
+	int i = 0;
+	int z =1;
+	int sum=0;
+	for(n=1;n<=3;n++)
+	{
+		for(i=1,z=1;i<=n;i++)
+		{
+			z= i*z;
+		}
+		sum = sum + z;
+		
+	}
+	printf("阶乘和为：%d",sum);
+	return 0;
+}
