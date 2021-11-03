@@ -1,0 +1,35 @@
+int Add(int x,int y)
+{
+	return x+y;			//定义加法函数 
+}
+
+
+
+int Dec(int x,int y)
+{
+	return x-y;				//定义减法函数 
+}
+
+int Mul(int x,int y)
+{
+	return x*y;				//定义乘法函数 
+}
+
+int Dev(int x,int y)
+{
+	return x/y;				//定义除法函数 
+}
+int main()
+{
+	int a,b,i;
+	a=4;
+	b=2;
+	int (*p)(int,int)=Add;
+	int (*pp[])(int,int)={Add,Dec,Mul,Dev};//定义一个函数指针数组 
+	for(i=0;i<4;i++)
+		{
+			printf("%d\n",(*pp[i])(a,b));
+		}
+	
+	return 0;
+}
