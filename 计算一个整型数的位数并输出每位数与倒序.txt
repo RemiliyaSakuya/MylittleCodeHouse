@@ -1,0 +1,41 @@
+#include<stdio.h>
+void print(int n)
+{
+	if (n > 9)
+	{
+		print(n / 10);
+	}
+	printf("%d ", n % 10);
+}
+
+
+
+
+int main()
+{
+	int n;
+	int count = 0;
+	int i = 0;
+	scanf_s("%d", &n);
+	int N = n;
+	if (n < 10)
+		count = 1;
+	if (n > 9)
+	{
+		while (N != 0)
+		{
+			N /= 10;
+			count++;
+		}
+	}
+	printf("位数为：%d\n", count);
+	print(n);
+	printf("\n");
+	for (i = 0; i < count; i++)
+	{
+		printf("%d", n % 10);
+		n /= 10;
+	}
+	return 0;
+
+}
