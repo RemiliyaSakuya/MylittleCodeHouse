@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<stdlib.h>
+int cmp(const void* e1, const void* e2)
+{
+	return (*(int*)e2) - (*(int*)e1);
+}
+int main()
+{
+	int arr[10] = { 12,21,22,6,103,4213,521,253,186,0 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	qsort(arr, sz, sizeof(arr[0]), cmp);
+	for (int i = 0; i < 10; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
