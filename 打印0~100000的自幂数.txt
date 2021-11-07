@@ -1,0 +1,32 @@
+int count(int n)
+{
+	int N = n;
+	int COUNT=0;
+	while (N != 0)
+	{
+		N /= 10;
+		COUNT++;
+	}
+	return COUNT;
+}
+int main()
+{
+	int i = 0;
+	int sum = 0;
+	int I = 1;
+	int N = 0;
+	for (I = 1; I <= 100000; I++)
+	{
+		int len = count(I);
+		for (i = 0, sum = 0,N=I; i < len; i++)
+		{
+			sum = pow(N % 10, len) + sum;
+			N /= 10;
+		}
+		if (sum == I)
+			printf("%d\n", I);
+	}
+
+
+	return 0;
+}
