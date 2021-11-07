@@ -1,0 +1,31 @@
+#includestdio.h
+#includestdlib.h
+#includestring.h
+#includeassert.h
+void reverse(char p)
+{
+	assert(p);
+	char tmp;
+	int sz = strlen(p);
+	char left = p;
+	char right = p + sz - 1;
+
+	while (leftright)
+	{
+		tmp = left;
+		left = right;
+		right = tmp;
+		right--;
+		left++;
+	}
+	
+}
+
+int main()
+{
+	char ch[256] = { 0 };
+	gets(ch);
+	reverse(ch);
+	printf(%s, ch);
+	return 0;
+}
