@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<math.h>
+//把菱形分成两部分进行打印
+//只需输入上部分行数line
+//下部分line-1
+int main()
+{
+	int line = 0;
+	scanf_s("%d", &line);
+	int i = 0;
+	int LINE = line;
+	int LINE2 = line;
+	for (i = 1; i <= line; i++)
+	{
+		int j = 0;
+		for (j = i; j <= line -1; j++)
+		{
+			printf(" ");
+		}
+		int k = 0;
+		for (k = 0; k < 2 * i - 1; k++)
+		{
+			printf("*");
+		}
+		printf("\n");
+	}
+	for (i = 1; i <= line - 1; i++)
+	{
+		int j = 0;
+		for (j = LINE-1; j <= line - 1; j++)
+		{
+			printf(" ");
+		}
+		LINE--;
+		int k = 0;
+		for (k = 0; k < 2*(LINE2 - 1)-1; k++)
+		{
+			printf("*");
+		}
+		printf("\n");
+		LINE2--;
+	}
+
+	return 0;
+}
