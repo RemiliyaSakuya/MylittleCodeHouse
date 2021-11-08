@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<math.h>
+void print(int a[], int sz)
+{
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", a[i]);
+	}
+}
+void move(int a[], int sz)
+{
+	int left = 0;
+	int tmp = 0;
+	int right = sz - 1;
+	while (left < right)
+	{
+		if (a[left] % 2 != 0 && left<right)
+		{
+			left++;
+		}
+
+		if (a[right] % 2 == 0 && left < right)
+		{
+			right--;
+		}
+
+		if (a[left] % 2 == 0 && a[right] % 2 != 0 && left<right)
+		{
+			tmp = a[left];
+			a[left] = a[right];
+			a[right] = tmp;
+		}
+	}
+}
+int main()
+{
+	int arr[] = { 1,3,5,7,9,11,13,15,17,19 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	move(arr, sz);
+	print(arr, sz);
+	return 0;
+	
+}	
