@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+#include<assert.h>
+void reserve(char* s1,char* s2)
+{
+	assert(s1 != NULL && s2 != NULL);
+	while (s1<s2)
+	{
+		char tmp = *s1;
+		*s1 = *s2;
+		*s2 = tmp;
+		s1++;
+		s2--;
+	}
+	
+}
+void move_left(char* arr, int k)
+{
+	int len = strlen(arr);
+	reserve(arr, arr+k-1);
+	reserve(arr+k, arr +len-1);
+	reserve(arr, arr + len - 1);
+
+}
+int is_same(char* p1, char* p2)
+{
+	int j = 0;
+	int len = strlen(p1);
+	while (j<len)
+	{
+		move_left(p1, 1);
+		if(strcmp(p1, p2) == 0)
+			return 1;
+		j++;
+	}
+	return 0;
+	
+}
+int main()
+{
+	char s1[] = "abcdef";
+	char s2[] = "cdefab";
+	int str=is_same(s1, s2);
+	if (str == 1)
+		printf("Yes\n");
+	else
+		printf("No\n");
+	return 0;
+}
