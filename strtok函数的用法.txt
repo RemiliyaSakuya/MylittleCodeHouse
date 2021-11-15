@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[] = "zpw@bitedu.tech";
+	char* p = "@.";
+	char* ret = NULL;
+	char buf[100] = { 0 };
+	strcpy(buf, arr);
+	for(ret=strtok(buf,p);ret!=NULL;ret=strtok(NULL,p))
+		{
+			printf("%s\n",ret);
+		}
+	printf("%s", arr);
+	return 0;
+}
