@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+struct stu
+{
+	char name[20];
+	int age;
+};
+void* my_memcpy(void* arr2, const void* arr1,size_t sz)
+{
+	assert(arr2 != NULL);
+	assert(arr1 != NULL);
+	char* ret = arr2;
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		*(char*)arr2 = *(char*)arr1;
+		++(char*)arr2;
+		++(char*)arr1;
+	}
+	
+	return ret;
+}
+int main()
+{
+	struct stu
+	{
+		char name[20];
+		int age;
+	};
+	struct stu arr1[] = { {"张三",20},{"李四",40} };
+	struct stu arr2[30] = { 0 };
+	my_memcpy(arr2, arr1, sizeof(arr1));
+	printf("%s", arr2[1].name);
+	return 0;
+}
+
