@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+char* my_strcat(char* dest, char* src)
+{
+	char* ret = dest;
+	while (*dest != '\0')
+	{
+		dest++;
+	}
+	while (*dest++ = *src++)
+	{
+		;
+	}
+	return ret;
+}
+int main()
+{
+	char dest[30] = "abcde";
+	char src[] = "fghij";
+	char* ret=my_strcat(dest, src);
+	printf("%s\n", ret);
+	return 0;
+}
+
