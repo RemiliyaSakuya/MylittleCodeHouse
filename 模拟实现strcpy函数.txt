@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+char* my_strcpy(char* dest, char* src)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	char* ret = dest;
+	while (*dest++ = *src++)
+	{
+		;
+	}
+	return ret;
+}
+int main()
+{
+	char src[] = "abcdefg";
+	char dest[] = "0";
+	char* ret=my_strcpy(dest, src);
+	printf("%s\n", ret);
+	return 0;
+}
+
