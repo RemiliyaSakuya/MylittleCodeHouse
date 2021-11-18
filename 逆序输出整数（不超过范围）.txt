@@ -1,0 +1,16 @@
+int reverse(int x)
+{
+     int N=0;
+    int result=0;
+    while(x!=0)
+    {
+        N=x%10;
+        if (result>INT_MAX/10 || result<INT_MIN/10) 		//判断result是否超出int整型范围（除以10是因为在下一步中会超过1个十位数故result无法存储得数所以要提前一个十位数判断）
+        {
+            return 0;
+        }
+         result=result*10+N;
+        x/=10;
+    }
+    return result;
+}
