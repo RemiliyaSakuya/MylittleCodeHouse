@@ -1,0 +1,39 @@
+int* singleNumber(int* nums, int numsSize, int* returnSize)
+{
+    int ret=0;
+    int i=0;
+    for(int i=0;i<numsSize;i++)
+    {
+        ret ^=nums[i];      //先用0按位异或每个数组元素最后ret==x1^x2
+    }
+    //因为x1与x2不相同所以x1^x2中二进制必定有第m位为1,考虑定位m的位置
+    //可以用1逐步算术位移用按位与判断当前二进制位是否为1
+    int m=0;
+    while(m < 32)
+    {
+        if(ret & (1<<m))
+            break;
+        else
+            ++m;
+    }
+    //找到m的位置后考虑从原数组中分离x1与x2，把二进制m位为1和0的数分为两组
+    int x1=0;
+    int x2=0;
+    for(int i=0;i<numsSize;i++)
+    {
+        if(nums[i] & (1<<m))
+        {
+            x1^=nums[i];    
+        }                //因为除了X1与X2以外的数都出现两次所以按位异或最后就会只剩下出现一次的数字
+        else
+        {
+            x2^=nums[i];
+        }
+    }
+    int* retarr=(int*)malloc(sizeof(int)*2);
+    retarr[0]=x1;
+    retarr[1]=x2;
+    *returnSize=2;
+    return retarr;
+
+}
