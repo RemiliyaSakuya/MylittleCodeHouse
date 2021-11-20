@@ -1,0 +1,34 @@
+int strStr(char * haystack, char * needle)
+{
+    if(*needle==NULL)
+        return 0;			//判断传入字符是否为空字符串,如是返回0即haystack首元素下标
+    int p1h = 0;
+    int p2h = 0;			//用p1h和p2h固定字符串开始查询的位置
+    int i = 0;
+    int j = 0;
+    while (haystack[i] != '\0')		//以haystack[i]=='\0'为结束条件
+    {
+        if (haystack[i] == '\0')
+            return -1;
+        if (haystack[i] == needle[0])	//当找到第一个元素匹配时用p1h固定住此刻下标位置，让i与j一同增加匹配下一个
+        {
+            p1h = i;
+            while (haystack[i] != '\0' && needle[j] != '\0')
+            {
+                if (haystack[i] == needle[j])
+                {
+                    i++;
+                    j++;			//haystack[i]与needle[j]相同时则两数各自++否则跳出循环
+                }
+                else
+                    break;
+            }
+            if (needle[j] == '\0')
+                return p1h;		//当needle[j]为'\0'时则寻找成功返回p1h的值
+            j = p2h;			//除了上述情况外就让i和j分别回到开始匹配时的下标位置
+            i = p1h;
+        }
+        i++;
+    }
+    return -1;
+}
