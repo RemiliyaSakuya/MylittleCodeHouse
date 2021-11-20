@@ -10,3 +10,22 @@ int main()
 		printf("´ó¶Ë\n");
 	return 0;
 }
+//方法二
+用联合体进行判断
+union UN
+{
+	char ch;
+	int i;
+};
+int main()
+{	union UN.i=1;
+	if(union UN.ch=='1')
+	{
+		printf("为小端\n");
+	}
+	else
+	{
+		printf("为大端\n");
+	}
+	return 0;
+}
