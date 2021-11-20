@@ -1,0 +1,36 @@
+#include "contact.h"
+int main()
+{
+	Contact C;
+	int input = 0;
+	InitContact(&C);
+	do
+	{
+		menu();
+		printf("请选择：");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case ADD:
+			ADDContact(&C);
+			break;
+		case DELETE:
+			break;
+		case SEARCH:
+			break;
+		case MODIFY:
+			break;
+		case SORT:
+			break;
+		case PRINT:
+			PrintContact(&C);
+			break;
+		case EXIT:
+			DestoryContact(&C);
+			break;
+		default:
+			break;
+		}
+	} while (input);
+	return 0;
+}

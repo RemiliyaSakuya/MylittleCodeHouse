@@ -1,0 +1,44 @@
+#pragma once
+#define MAX 100
+#define Default_Size 3
+#define RellocSize 3
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<assert.h>
+enum MENU
+{
+	EXIT,
+	ADD,
+	DELETE,
+	SEARCH,
+	MODIFY,
+	SORT,
+	PRINT
+};
+typedef struct peoinfo
+{
+	char name[30];
+	char sex[20];
+	int age;
+	int tele;
+	char addres[20];
+}peoinfo;
+//静态版本
+//typedef struct Contact
+//{
+//	peoinfo date[MAX];//定义一个整型数组用于存放联系人结构体的成员信息
+//	int size;//定义联系本的空间大小
+//}Contact;
+//动态版本
+typedef struct Contact
+{
+	peoinfo* date;//定义一个结构体指针用于指向联系人结构体的成员信息地址
+	int size;//定义联系本有效个数
+	int Capacity;//定义通讯录容量
+}Contact;
+void InitContact(Contact* ps);
+void ADDContact(Contact* ps);
+void PrintContact(const Contact* ps);
+void menu();
+void DestoryContact(Contact* ps);
