@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+int my_strstr(char* dest, char* src)
+{
+	assert(dest);
+	assert(src);
+	char* start1 = dest;
+	char* start2 = src;
+	while (*dest != '\0')
+	{
+		if(*dest == *src)
+			start1 = dest;
+		while (*dest == *src && *src!='\0')
+		{
+			dest++;
+			src++;
+			if (*dest != *src)
+			{
+				dest = start1;
+				src = start2;
+				break;
+			}
+		}
+		if (*src == '\0')
+		{
+			return 1;
+		}
+		dest++;
+	}
+	if (*dest == '\0')
+	{
+		return -1;
+	}
+}
+int main()
+{
+	char* dest = "abcdddef";
+	char* src = "ddef";
+	int ret=my_strstr(dest, src);
+	if (ret == 1)
+	{
+		printf("找到了\n");
+	}
+	else
+		printf("找不到\n");
+	return 0;
+}
