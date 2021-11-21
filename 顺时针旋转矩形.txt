@@ -1,0 +1,32 @@
+#include "allinclude.h"  //DO NOT edit this line
+void turningClockwise(char a[N][N])
+{  // Add your code here
+  int tmp=a[0][0];	//记住第一次循环的首元素
+  int row=0;
+  int col=0;
+  //最左边第一列旋转
+  for(row=0;row<N-1;row++)// N-1是避免访问越界
+  {
+    a[row][0]=a[row+1][0];
+  }
+  //最下面一行
+  for(col=0;col<N-1;col++)
+  {
+    a[N-1][col]=a[N-1][col+1];
+  }
+  //最右边一列
+  for(row=N-1;row>0;row--)
+  {
+    a[row][N-1]=a[row-1][N-1];
+  }
+  //最上面一行
+  for(col=N-1;col>0;col--)
+  {
+    a[0][col]=a[0][col-1];
+  }
+  a[0][1]=tmp;
+
+}
+
+
+基本思路：从1、最上面一行   2、最右边一列  3、最下面一行  4、最左边一列   四个方向进行循环赋值,循环开始进行的方向应与赋值方向相反。
