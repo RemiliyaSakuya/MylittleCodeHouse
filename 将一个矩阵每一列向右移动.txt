@@ -1,0 +1,18 @@
+#include "allinclude.h"  //DO NOT edit this line
+void turningRight(char a[N][N])
+{  
+  
+  int row=0;
+  int col=0;
+  for(row=0;row<N;row++)  //用循环找到每一行
+  {
+    int tmp=a[row][N-1];  //用中间变量进行存储每一行开始的元素
+    for(col=N-1;col>0;col--)//再对每一种中每一列的元素进行位移赋值
+    {
+      a[row][col]=a[row][col-1];
+    }
+    a[row][0]=tmp;//对最后的元素进行赋值tmp
+  }
+
+
+}
