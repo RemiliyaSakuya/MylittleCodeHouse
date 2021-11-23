@@ -1,0 +1,86 @@
+#define _CRT_SECURE_NO_WARINGS 1
+#include "sqelistNode.h"
+void SListPopFront(SListNode** pphead)
+{
+	SListNode* front = (*pphead)->next;
+	free(*pphead);
+	*pphead = front;
+}
+void SListPushFront(SListNode** pphead,SLDataType x)
+{
+	SListNode* front = *pphead;
+	SListNode* NewNode = BuySListNode(x);
+	NewNode->next = front;
+	*pphead = NewNode;
+
+
+}
+void SListPrint(SListNode* pphead)
+{
+	SListNode* cur = pphead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+void SListPopBack(SListNode** pphead)
+{
+	SListNode* tail = *pphead;
+	SListNode* prv = *pphead;
+
+	if (*pphead == NULL)
+	{
+		return;
+	}
+	else if (tail->next == NULL)
+	{
+		free(tail);
+		tail = NULL;
+	}
+	else
+	{
+		while (tail->next != NULL)
+		{
+			prv = tail;
+			tail = tail->next;
+		}
+		free(tail);
+		prv->next = NULL;
+	}
+
+}
+SListNode* BuySListNode(SLDataType x)
+{
+	SListNode* NewNode = (SListNode*)malloc(sizeof(SListNode));
+	if (NewNode == NULL)
+	{
+		printf("申请失败\n");
+		exit(-1);
+	}
+	NewNode->data = x;
+	NewNode->next = NULL;
+	return NewNode;
+}
+
+void SListPushBack(SListNode** pphead, SLDataType x)
+{
+	SListNode* NewNode = BuySListNode(x);
+	//1.当传入的pphead为NULL
+	if (*pphead == NULL)
+	{
+		*pphead = NewNode;
+	}
+	//2.当链表不为NULL时
+	else
+	{
+		SListNode* tail = *pphead;
+		while (tail->next != NULL)
+		{
+			tail = tail->next;
+		}
+		tail->next = NewNode;
+
+	}
+}

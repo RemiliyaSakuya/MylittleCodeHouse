@@ -1,0 +1,19 @@
+#pragma once
+#include<stdio.h>
+#include<stdlib.h>
+#include<assert.h>
+//重命名定义数据类型
+typedef int SLDataType;
+//创建结构体变量
+typedef struct SListNode
+{
+	SLDataType data;
+	struct SListNode* next;
+}SListNode;
+
+void SListPushBack(SListNode** pphead,SLDataType x);//尾插
+void SListPopBack(SListNode** pphead);//尾删
+void SListPushFront(SListNode** pphead,SLDataType x);//头插
+void SListPopFront(SListNode** pphead);//头删
+void SListPrint(SListNode* pphead);//打印
+SListNode* BuySListNode(SLDataType x);//申请空间
