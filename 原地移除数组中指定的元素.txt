@@ -1,0 +1,22 @@
+int removeElement(int* nums, int numsSize, int val)
+{
+    int* cur=nums;
+    int* pre=nums;
+    int i=0;
+    int j=0;
+    //思路：通过定义两个变量去遍历数组，一前一后
+    for(i=0;i<numsSize;)
+    {
+        if(cur[i]!=val)//当后面变量指向的不是目标元素则把后面的值赋给前面，并一同往后走
+        {
+            pre[j]=cur[i];
+            i++;
+            j++;
+        }
+        else if(cur[i]==val)//当后面变量指向的是目标元素则后面的继续往后走，前面停住不动
+        {
+            i++;
+        }
+    }
+    return j;//返回前面的下标
+}
