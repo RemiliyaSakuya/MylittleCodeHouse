@@ -1,0 +1,69 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* addToArrayForm(int* num, int numSize, int k, int* returnSize)
+{
+    int ksize=0;    //k的位数
+    int ktmp=k; //拷贝k的值
+    int len=0;  //存放k与num之间最长的个数
+    int Ai=0;   //返回数组的下标
+    int NUMSIZE=numSize;    //numSize的拷贝
+    while(ktmp)//求出k值的位数
+    {
+        ksize++;
+        ktmp/=10;
+    }
+    len=ksize>numSize ? ksize : numSize;  //len为 num和k的最长的位数
+    int* retArr=(int*)malloc(sizeof(int)*(len+1));  //向内存申请一个len+1位数的空间
+    int nextcome=0; //存放进位1
+    int numi=numSize-1;
+    int ret=0;  //存放两数相加的个位数
+    while(len--)    //用len控制大循环次数
+    {
+        if(numi>=0)     //当num个数小于k的位数时应作判断否则会越界访问
+        {
+            ret=num[numi]+k%10+nextcome;
+            k/=10;
+            numi--;
+        }
+        else    //当num已经遍历完时len还没达到0的情况
+        {
+            ret=k%10+nextcome;
+            k/=10;
+        }
+        
+        if(ret>9)   //当两数相加大于0时应进行进位判断
+        {
+            ret-=10;
+            nextcome=1;     //存储进位
+        }
+        else        //不用进位情况
+        {
+            nextcome=0;
+        }
+        retArr[Ai]=ret;     //赋值给返回数组并增加下标位置
+        Ai++;
+    }
+    if(nextcome==1)     //当len为0时如果nextcome为1，代表有进位残留应在返回数组retArr末尾加上1
+    {
+        retArr[Ai]=nextcome;
+        Ai++;
+    }
+    int left=0;
+    int right=Ai-1;
+    while(left<right)      //倒序retArr数组
+    {
+        int tmp=retArr[left];
+        retArr[left]=retArr[right];
+        retArr[right]=tmp;
+        left++;
+        right--;
+    }
+    *returnSize=Ai;//返回
+    return retArr;
+}
+
+作者：sakuya-c
+链接：https://leetcode-cn.com/problems/add-to-array-form-of-integer/solution/cai-ji-de-si-lu-by-sakuya-c-z7hm/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
