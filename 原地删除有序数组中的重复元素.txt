@@ -1,0 +1,31 @@
+int removeDuplicates(int* nums, int numsSize)
+{
+    int dest=0;
+    int prev=0;
+    int cur=1;
+    int i=0;
+    //思路：用三个指针进行查找方法与原地删除数组中特定元素方法类似
+    if(cur>numsSize)
+    {
+        return 0;
+    }
+    while(cur<numsSize)
+    {
+        if(nums[prev]!=nums[cur])
+        {
+            nums[dest]=nums[prev];
+            dest++;
+            prev++;
+            cur++;
+        }
+        else
+        {
+            cur++;
+            prev++;
+        }
+    }
+    nums[dest]=nums[prev];
+    prev++;
+    dest++;
+    return dest;
+}
