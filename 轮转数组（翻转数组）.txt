@@ -1,0 +1,30 @@
+void reserve(int* left,int* right)
+{
+    while(left<right)
+    {
+        int tmp=*left;
+        *left=*right;
+        *right=tmp;
+        left++;
+        right--;
+    }
+}
+
+
+
+void rotate(int* nums, int numsSize, int k)
+{
+    //1.用for重复遍历数组每次使数组最后一位元素移至第一位，时间复杂度：O(K*N)
+    //2.向内存新开辟一段数组空间，把旋转数组逆序储存在该数组中，再顺序储存剩下的元素.最后把该数组拷贝给nums中，时间复杂度：O(N)
+      //空间复杂度：O(K)
+   //3.三步翻转法，把数组分成两份每一份都各自逆序，最后整体逆序.时间复杂度:O(N)
+                                                       // 空间复杂度：O(1)(最优解)
+    
+    while(k>numsSize)
+    {
+        k-=numsSize;    //令k始终保持比numsSize小，否则会越界
+    }
+    reserve(nums+numsSize-1-k+1,nums+numsSize-1);
+    reserve(nums,nums+numsSize-1-k);
+    reserve(nums,nums+numsSize-1);
+}
