@@ -1,0 +1,39 @@
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n)
+{
+    //1.利用for进行遍历每遇到nums1中的数大于nums2中的数就把数组向后移动。时间复杂度：   O（N*M）
+    //2.把nums2放进nums1中再对nums1进行排序。最小时间复杂度：O（log2N)
+//3.新开辟一段内存空间，分别用双下标指向nums1与nums2把两数中最小的放进新开辟的数组中.时间复杂度：O（M+N）
+    int* retArr=(int*)malloc(sizeof(int)*(m+n));
+    int nums1i=0;
+    int nums2i=0;
+    int Ai=0;
+    while(nums1i <m && nums2i < n )
+    {
+        if(nums1[nums1i]<=nums2[nums2i])
+        {
+            retArr[Ai]=nums1[nums1i];
+            Ai++;
+            nums1i++;
+        }
+        else
+        {
+            retArr[Ai]=nums2[nums2i];
+            Ai++;
+            nums2i++;
+        }
+    }
+    while(nums1i<m)
+    {
+        retArr[Ai]=nums1[nums1i];
+        nums1i++;
+        Ai++;
+    }
+    while(nums2i<n)
+    {
+        retArr[Ai]=nums2[nums2i];
+        nums2i++;
+        Ai++;
+    }
+    memcpy(nums1,retArr,sizeof(int)*(m+n));
+   free(retArr);
+}
