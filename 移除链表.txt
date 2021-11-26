@@ -1,0 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* removeElements(struct ListNode* head, int val)
+{
+    struct ListNode* cur=head;
+    struct ListNode* prev=NULL; //定义两个指针一个指向当前节点，另一个指向上一个节点
+    if(head == NULL)
+        return head;       //先判断链表是否为空
+    while(cur != NULL)
+    {
+        if(cur->val == val)     //当cur找到要删除的目标节点
+        {
+             if(head->val==val)//注意，当要删除的节点在链表头部开始时，需要把head前移
+            { 
+                head=head->next;
+                free(cur);
+                cur=head;
+            }
+            else //如果不是头节点为目标节点
+            {
+                prev->next=cur->next;
+                free(cur);
+                cur=prev;
+            }
+            
+        }
+        else    //当cur不是目标节点时继续往后寻找
+        {
+            prev=cur;
+            cur=cur->next;
+        }
+    }
+    return head;//返回头部指针
+}
