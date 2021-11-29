@@ -1,0 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+//思路：尾插法：通过用两个指针指向两个链表的头节点，每次取其中val值小的一方尾插入新的链表中，以l1与l2共同不为空的前提进行循环，当退出循环时把尾指针指向不为空的那个链表,最后返回新的链表头节点
+
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2)
+{
+    if(l1 ==NULL)
+        return l2;
+    else if(l2==NULL)
+        return l1;
+    struct ListNode* NewHead;
+    struct ListNode* cur;
+    if(l1->val < l2->val)
+    {
+        NewHead=l1;
+        cur=NewHead;
+        l1=l1->next;
+    }
+    else
+    {
+        NewHead=l2;
+        cur=NewHead;
+        l2=l2->next;
+    }
+    while(l1 !=NULL && l2 !=NULL)
+    {
+        if(l1->val < l2->val)
+        {
+            cur->next=l1;
+            l1=l1->next;
+            cur=cur->next;
+        }
+        else
+        {
+            cur->next=l2;
+            l2=l2->next;
+            cur=cur->next;
+        }
+    }
+    if(l1 == NULL)
+    {
+        cur->next=l2;
+    }
+    else
+    {
+        cur->next=l1;
+    }
+    return NewHead;
+}
