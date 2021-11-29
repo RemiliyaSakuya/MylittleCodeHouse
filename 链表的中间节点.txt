@@ -1,0 +1,20 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* middleNode(struct ListNode* head)
+{
+    struct ListNode* fast=head;
+    struct ListNode* slow=head;
+    while(fast && fast->next)
+    {
+        slow=slow->next;
+        fast=fast->next->next;      //fast永远比slow多走两倍的距离即slow走一步fast走两步,此时会不断保持slow与fast的步数为2倍,因此当fast走完后slow便停在了链表的中间节点，此时返回slow便完成任务.
+    }
+    return slow;
+}
