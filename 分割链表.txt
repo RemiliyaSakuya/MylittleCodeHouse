@@ -1,0 +1,39 @@
+
+struct ListNode {
+    int val;
+    struct ListNode next;
+    ListNode(int x)  val(x), next(NULL) {}
+};
+class Partition {
+public
+    ListNode partition(ListNode pHead, int x) 
+    {
+        ListNode lesslist,lesstail;
+        ListNode greaterlist,greattail;
+        lesslist =lesstail=(ListNode)malloc(sizeof(ListNode));创建哨兵头节点使其不用判断是否为空链表
+        greaterlist=greattail=(ListNode)malloc(sizeof(ListNode));同上
+        lesslist-next=greaterlist-next=NULL;    让lesslist与greaterlist保持不变
+        ListNode cur=pHead;
+        while(cur)	//一次循环遍历链表
+        {
+            if(cur-val  x)
+            {
+                lesstail-next=cur;
+                lesstail=lesstail-next;
+            }
+            else
+            {
+                greattail-next=cur;
+                greattail=greattail-next;
+            }
+            cur=cur-next;
+        }
+        lesstail-next=greaterlist-next;
+        greattail-next=NULL;
+        ListNode NewHead=lesslist-next;
+        free(lesslist);
+        free(greaterlist);
+        return NewHead;
+    }
+    思路：通过创建两个新链表用于分开大于x与小于x的数最后把它们链起来(注意greattail的next在最后要置空否则会形成环形链表)
+};
