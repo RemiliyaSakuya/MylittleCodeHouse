@@ -1,0 +1,59 @@
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+struct ListNode* reserve(ListNode* phead)    //逆序链表
+{
+    ListNode* NewNode=NULL;
+    ListNode* cur=phead->next;
+    ListNode* prev=phead;
+    while(prev != NULL)
+    {
+        prev->next=NewNode;
+        NewNode=prev;
+        prev=cur;
+        if(cur)
+        cur=cur->next;
+    }
+    return NewNode;
+}
+
+
+
+
+
+
+
+class Palindrome {
+public:
+    bool isPalindrome(ListNode* pHead) 
+    {
+        ListNode* fast=pHead;
+        ListNode* slow=pHead;
+        ListNode* prev=pHead;
+        while(fast && fast->next)
+        {
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;    //循环结束后slow指向链表中间节点
+        }
+        slow=reserve(slow);    //倒序slow后面的链表
+        prev->next=NULL; //把链表分开两半进行遍历   
+        ListNode* cur=pHead;
+        while(cur)    //对比两边两边链表是否相等
+        {
+            if(cur->val != slow->val)
+            {
+                return false;
+            }
+            else
+            {
+                cur=cur->next;
+                slow=slow->next;
+            }
+        }
+        return true;
+    }
+};
