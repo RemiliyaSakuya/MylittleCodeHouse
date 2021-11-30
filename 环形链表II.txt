@@ -1,0 +1,13 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+ //1.可以先用快慢指针判断环形链表，当存在环时，把slow与fast相遇的节点断开使其next指向NULL，然后把其看作链表相交的形式找到进入环的节点(理解简单但写起来麻烦)
+ //2.
+struct ListNode *detectCycle(struct ListNode *head) 
+{
+    
+}
