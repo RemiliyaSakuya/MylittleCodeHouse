@@ -6,8 +6,27 @@
  * };
  */
  //1.可以先用快慢指针判断环形链表，当存在环时，把slow与fast相遇的节点断开使其next指向NULL，然后把其看作链表相交的形式找到进入环的节点(理解简单但写起来麻烦)
- //2.
+ //2.公式推理
 struct ListNode *detectCycle(struct ListNode *head) 
 {
-    
+    if(head==NULL)
+        return NULL;
+    struct ListNode* fast,*slow;
+    fast=slow=head; //定义快慢指针
+    while(fast && fast->next)//让fast永远比slow多走一倍距离
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow == fast)
+            break;
+    }
+    if(fast==NULL ||fast->next==NULL )
+        return NULL;
+    struct ListNode* ret=head;
+    while(ret != fast)  //根据公式可得知交点与头指针同时走时会在刚进入环形链表的开头
+    {
+        ret=ret->next;
+        fast=fast->next;
+    }
+    return ret;
 }
