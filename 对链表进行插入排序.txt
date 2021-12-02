@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+typedef struct ListNode ListNode;
+struct ListNode* insertionSortList(struct ListNode* head)
+{
+    //1.先把头节点取下来做新头
+    if(head==NULL || head->next == NULL)
+        return head;
+    ListNode* NewHead=head;
+    ListNode* cur=head->next;
+    NewHead->next=NULL;
+    //2.如果cur小于NewHead,头插
+    while(cur)
+    {
+        ListNode* next=cur->next;
+        if(cur->val <= NewHead->val)
+        {
+            cur->next=NewHead;
+            NewHead=cur;
+            cur=next;
+        }
+        else
+        {
+            ListNode* sortcur=NewHead->next;
+            ListNode* sortprev=NewHead;
+            while(sortcur)
+            {
+                ListNode* sortnext=sortcur->next;   //中间插
+                if(cur->val < sortcur->val)
+                {
+                    sortprev->next=cur;
+                    cur->next=sortcur;
+                    cur=next;
+                    break;
+                }
+                else
+                {
+                    sortprev=sortprev->next;
+                    sortcur=sortcur->next;
+                }
+            }
+            if(sortcur==NULL)   //尾插(记得把尾部置空)
+            {
+                sortprev->next=cur;
+                sortprev->next->next=NULL;
+                cur=next;
+            }
+        }
+    }
+    return NewHead;
+}
