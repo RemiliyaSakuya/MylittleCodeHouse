@@ -1,0 +1,103 @@
+#define _CRT_SECURE_NO_WARINGS 1
+#include "doubleList.h"
+void ListPrint(ListNode* phead)
+{
+	assert(phead);
+	ListNode* cur = phead->next;
+	while (cur != phead)
+	{
+		printf("%d ", cur->val);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+
+ListNode* BuyNode(ListDataType x)
+{
+	ListNode* newNode = (ListNode*)malloc(sizeof(ListNode));
+	newNode->prev = newNode;
+	newNode->next = newNode;
+	newNode->val = x;
+	return newNode;
+}
+ListNode* ListInit(ListNode* phead)
+{
+	ListNode* newHead = BuyNode(0);
+	return newHead;
+
+}
+void ListPushBack(ListNode* phead, ListDataType x)
+{
+	assert(phead);
+	ListNode* newNode = BuyNode(x);
+	ListNode* tail = phead->prev;
+	ListNode* tailprev = phead->prev->prev;
+	tail->next = newNode;
+	tail->prev = tailprev;
+	newNode->next = phead;
+	newNode->prev = tail;
+	phead->prev = newNode;
+	
+}
+void ListPopBack(ListNode* phead)
+{
+	assert(phead);
+	assert(phead->next != phead);
+	ListNode* tail = phead->prev;
+	ListNode* tailprev = phead->prev->prev;
+	free(tail);
+	tailprev->next = phead;
+	phead->prev = tailprev;
+}
+void ListPushFront(ListNode* phead, ListDataType x)
+{
+	assert(phead);
+	ListNode* cur = phead->next;
+	ListNode* newNode = BuyNode(x);
+	phead->next = newNode;
+	newNode->next = cur;
+	newNode->prev = phead;
+	cur->prev = newNode;
+}
+void ListPopFront(ListNode* phead)
+{
+	assert(phead);
+	assert(phead->next != phead);
+	ListNode* del = phead->next;
+	ListNode* delnext = del->next;
+	phead->next = delnext;
+	delnext->prev = phead;
+	free(del);
+}
+void ListInsert(ListNode* pos, ListDataType x)
+{
+	assert(pos);
+	ListNode* posPrev = pos->prev;
+	ListNode* newNode = BuyNode(x);
+	posPrev->next = newNode;
+	newNode->next = pos;
+	newNode->prev = posPrev;
+	pos->prev = newNode;
+}
+ListNode* ListFind(ListNode* phead, ListDataType x)
+{
+	assert(phead);
+	ListNode* pos = phead->next;
+	while (pos->val != x && pos != phead)
+	{
+		pos = pos->next;
+	}
+	if (pos == phead)
+		return NULL;
+	else
+		return pos;
+}
+void ListErase(ListNode* pos)
+{
+	assert(pos);
+	ListNode* posPrev = pos->prev;
+	ListNode* posNext = pos->next;
+	posPrev->next = posNext;
+	posNext->prev = posPrev;
+	free(pos);
+}

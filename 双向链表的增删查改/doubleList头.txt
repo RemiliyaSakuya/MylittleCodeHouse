@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+#include <stdlib.h>
+typedef int ListDataType;
+
+
+
+typedef struct ListNode	//创建双链表的内容,需要一个哨兵节点
+{
+	ListDataType val;
+	struct ListNode* next;
+	struct ListNode* prev;
+}ListNode;
+
+
+void ListPushBack(ListNode* phead,ListDataType x);//双链表的尾插
+void ListPopBack(ListNode* phead);//尾删
+void ListPushFront(ListNode* phead, ListDataType x);//头插
+void ListPopFront(ListNode* phead);//头删
+ListNode* ListInit(ListNode* phead);//初始化链表
+ListNode* ListFind(ListNode* phead,ListDataType x);//查找链表中的元素
+ListNode* BuyNode(ListDataType x);//构造新节点
+void ListInsert(ListNode* pos, ListDataType x);//在pos前面插入x
+void ListErase(ListNode* pos);//删除pos的节点
+void ListPrint(ListNode* phead);//打印链表
+
