@@ -1,0 +1,153 @@
+typedef char STDataType;
+
+
+typedef struct stack
+{
+	STDataType* data;//数据
+	int Top;//栈顶
+	int Capacity;//容量
+}ST;
+
+
+
+
+
+
+
+
+
+
+
+
+void StackInit(ST* Stack)
+{
+	assert(Stack);
+	Stack->data = (STDataType*)malloc(sizeof(STDataType) * 4);
+	Stack->Capacity = 4;
+	Stack->Top = 0;//把Top设为0
+
+}
+void StackDestory(ST* Stack)
+{
+	assert(Stack);
+	free(Stack->data);
+	Stack->data = NULL;
+	Stack->Top = 0;
+	Stack->Capacity = 0;
+}
+void StackPush(ST* Stack,STDataType x)
+{
+	assert(Stack);
+	if (Stack->Top == Stack->Capacity)//检测是否抵达上限
+	{
+		STDataType* newNode = (STDataType*)realloc(Stack->data, sizeof(STDataType)*(Stack->Capacity)*2);
+		if (newNode != NULL)
+		{
+			Stack->data = newNode;
+			Stack->Capacity *= 2;
+		}
+		else
+		{
+			printf("创建失败\n");
+			exit(-1);
+		}
+	}
+	Stack->data[Stack->Top] = x;
+	Stack->Top++;
+}
+void StackPop(ST* Stack)
+{
+	assert(Stack);
+	assert(Stack->Top > 0);
+	Stack->Top--;
+}
+STDataType StackTop(ST* Stack)
+{
+	assert(Stack);
+	assert(Stack->Top > 0);
+	return Stack->data[Stack->Top - 1];
+}
+int StackSize(ST* Stack)
+{
+	return Stack->Top;
+}
+bool StackEmpty(ST* Stack)
+{
+	return Stack->Top == 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+bool isValid(char * s)
+{
+    ST Stack;
+    StackInit(&Stack);
+    while(*s != '\0')//遍历s字符串
+    {
+        switch(*s)
+        {
+            case '(':
+            case '[':
+            case '{'://当*s为左括号时入栈
+            {
+                StackPush(&Stack,*s);
+                s++;
+                break;
+            }
+            case ')':
+            case ']':
+            case '}'://当*s为右括号时,取栈顶出栈并与*s作比较,如果匹配则继续否则直接返回false
+            {
+                if(StackEmpty(&Stack))//如果在指向右括号时栈为空则直接返回false
+                {
+                    StackDestory(&Stack);
+                    return false;
+                }
+                char top=StackTop(&Stack);
+                StackPop(&Stack);
+                if((*s ==')' && top !='(')
+                   ||(*s ==']' && top !='[')
+                   ||(*s =='}' && top !='{'))
+                   {
+                       return false;
+                   }
+                else
+                {
+                    s++;
+                }
+            }
+        }
+    }
+    if(!StackEmpty(&Stack)) //循环结束时需判断栈是否为空,如果为空返回false否则返回true
+    {
+        StackDestory(&Stack);
+        return false;
+    }
+    else
+    {
+        StackDestory(&Stack);
+        return true;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
