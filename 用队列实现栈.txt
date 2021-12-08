@@ -1,0 +1,211 @@
+typedef int QDataType;
+
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDataType Data;
+}QNode;
+typedef struct Queue//用头与尾指针指向队列
+{
+	QNode* head;
+	QNode* tail;
+}Queue;
+
+
+
+QDataType QueueBack(Queue* q)
+{
+	assert(q);
+	assert(q->tail);
+	return q->tail->Data;
+}
+
+
+
+void QueueInit(Queue* q)
+{
+	assert(q);
+	q->head=NULL;
+	q->tail= NULL;
+}
+void QueueDestory(Queue* q)
+{
+	assert(q);
+	QNode* cur = q->head;
+	while (cur)
+	{
+		QNode* next = cur->next;
+		free(cur);
+		cur = next; 
+	}
+	q->head = NULL;
+	q->tail = NULL;
+}
+void QueuePush(Queue* q,QDataType x)
+{
+	assert(q);
+	QNode* newNode = (QNode*)malloc(sizeof(QNode));
+	if (newNode == NULL)
+	{
+		printf("malloc fail\n");
+		exit(-1);
+	}
+	newNode->Data = x;
+	newNode->next = NULL;
+	if (q->tail == NULL)		//一开始如果队列为空则让头指针与尾指针同时指向新节点
+	{
+		q->head = q->tail = newNode;
+	}
+	else       //如果不是，则让tail的next指向newNode
+	{
+		q->tail->next = newNode;
+		q->tail = newNode;
+	}
+
+}
+void QueuePop(Queue* q)		//队头删
+{
+	assert(q);
+	assert(q->head);
+	QNode* next = q->head->next;
+	free(q->head);
+	q->head = next;
+	if (q->head == NULL)	//当队列中head已经删到了NULL时,tail仍然指向了尾部的节点地址,导致节点被free掉后tail变成了野指针,所以需要置空
+	{
+		q->tail =NULL;
+	}
+}
+bool QueueEmpty(Queue* q)
+{
+	assert(q);
+	return q->head == NULL;
+}
+QDataType QueueFront(Queue* q)
+{
+	assert(q);
+	assert(q->head);
+	return q->head->Data;
+}
+int QueueSize(Queue* q)
+{
+	assert(q);
+	int size = 0;
+	QNode* cur = q->head;
+	while (cur)
+	{
+		size++;
+		cur = cur->next;
+	}
+	return size;
+}
+
+
+
+
+
+
+
+
+
+typedef struct {
+    Queue q1;
+    Queue q2;
+} MyStack;
+
+
+MyStack* myStackCreate() 
+{
+    MyStack* ps=(MyStack*)malloc(sizeof(MyStack));
+    if(ps==NULL)
+    {
+        printf("malloc fail\n");
+        exit(-1);
+    }
+    QueueInit(&ps->q1);
+    QueueInit(&ps->q2);
+    return ps;
+}
+
+void myStackPush(MyStack* obj, int x)   //入数据往不为空的队列当中
+{
+    if(!QueueEmpty(&obj -> q1))
+    {
+        QueuePush(&obj->q1,x);
+    }
+    else
+    {
+        QueuePush(&obj->q2,x);
+    }
+}
+
+int myStackPop(MyStack* obj)    //出数据从不为空的队列出到为空的队列当中
+{
+    if(!QueueEmpty(&obj ->q1))      //如果q1不为空则把q1的数据倒进q2中,留下最后一位
+    {
+        while(QueueSize(&obj->q1) >1)
+        {
+            int data=QueueFront(&obj->q1);
+            QueuePush(&obj->q2,data);
+            QueuePop(&obj->q1);
+        }
+        int top=QueueFront(&obj->q1);
+        QueuePop(&obj->q1);
+        return top;
+    }
+    else
+    {
+        while(QueueSize(&obj->q2) >1)
+        {
+            int data=QueueFront(&obj->q2);
+            QueuePush(&obj->q1,data);
+            QueuePop(&obj->q2);
+        }
+        int top=QueueFront(&obj->q2);
+        QueuePop(&obj->q2);
+        return top;
+    }      
+}
+
+int myStackTop(MyStack* obj) 
+{
+    if(!QueueEmpty(&obj->q1))       //如果q1不为空直接取q1的队尾
+    {
+        int tail=QueueBack(&obj->q1);
+        return tail;
+    }
+    else
+    {
+        int tail=QueueBack(&obj->q2);
+        return tail;
+    }
+}
+
+bool myStackEmpty(MyStack* obj) 
+{
+    return QueueEmpty(&obj->q1) && QueueEmpty(&obj->q2);
+}
+
+void myStackFree(MyStack* obj) 
+{
+     QueueDestory(&obj->q1);
+     QueueDestory(&obj->q2);
+     free(obj);
+
+
+}
+
+/**
+ * Your MyStack struct will be instantiated and called as such:
+ * MyStack* obj = myStackCreate();
+ * myStackPush(obj, x);
+ 
+ * int param_2 = myStackPop(obj);
+ 
+ * int param_3 = myStackTop(obj);
+ 
+ * bool param_4 = myStackEmpty(obj);
+ 
+ * myStackFree(obj);
+*/
+
+//思路：用两个队列合并到一个MyStack结构体当中,当需要MyStack出栈时,把两个队列中不为空的队列中的元素出到另一个空队列当中只留下一个元素,最后把这个元素Pop掉,即完成模拟出栈的功能
