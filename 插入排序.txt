@@ -1,0 +1,42 @@
+#include <stdio.h>
+void InsertSort(int arr[], int n)
+{
+	int end;
+	int i = 0;
+	for (i = 0; i < n - 1; i++)
+	{
+		end = i;
+		int tmp = arr[end + 1];
+		while (end >= 0)
+		{
+			if (arr[end] > tmp)
+			{
+				arr[end + 1] = arr[end];
+				end--;
+			}
+			else
+			{
+				break;
+			}
+		}
+		arr[end+1] = tmp;
+	}
+}
+void PrintArr(int arr[], int n)
+{
+	int i = 0;
+	for (i = 0; i < n; i++)
+		printf("%d ", arr[i]);
+}
+
+
+
+
+
+int main()
+{
+	int arr[10] = { 6,7,4,2,8,54,84,165,3,0 };
+	InsertSort(arr, sizeof(arr) / sizeof(arr[0]));
+	PrintArr(arr,sizeof(arr)/sizeof(arr[0]));
+	return 0;
+}
