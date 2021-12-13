@@ -1,0 +1,83 @@
+#define _CRT_SECURE_NO_WARINGS 1
+#include "Queue.h"
+//考虑用单链表实现队列
+void QueueInit(Queue* q)
+{
+	assert(q);
+	q->head=NULL;
+	q->tail= NULL;
+}
+void QueueDestory(Queue* q)
+{
+	assert(q);
+	QNode* cur = q->head;
+	while (cur)
+	{
+		QNode* next = cur->next;
+		free(cur);
+		cur = next; 
+	}
+	q->head = NULL;
+	q->tail = NULL;
+}
+void QueuePush(Queue* q,QDataType x)
+{
+	assert(q);
+	QNode* newNode = (QNode*)malloc(sizeof(QNode));
+	if (newNode == NULL)
+	{
+		printf("malloc fail\n");
+		exit(-1);
+	}
+	newNode->Data = x;
+	newNode->next = NULL;
+	if (q->tail == NULL)		//一开始如果队列为空则让头指针与尾指针同时指向新节点
+	{
+		q->head = q->tail = newNode;
+	}
+	else       //如果不是，则让tail的next指向newNode
+	{
+		q->tail->next = newNode;
+		q->tail = newNode;
+	}
+
+}
+void QueuePop(Queue* q)		//队头删
+{
+	assert(q);
+	assert(q->head);
+	QNode* next = q->head->next;
+	free(q->head);
+	q->head = next;
+	if (q->head == NULL)	//当队列中head已经删到了NULL时,tail仍然指向了尾部的节点地址,导致节点被free掉后tail变成了野指针,所以需要置空
+	{
+		q->tail =NULL;
+	}
+}
+bool QueueEmpty(Queue* q)
+{
+	assert(q);
+	return q->head == NULL;
+}
+QDataType QueueFront(Queue* q)
+{
+	assert(q);
+	assert(q->head);
+	return q->head->Data;
+}
+int QueueSize(Queue* q)
+{
+	assert(q);
+	int size = 0;
+	QNode* cur = q->head;
+	while (cur)
+	{
+		size++;
+		cur = cur->next;
+	}
+	return size;
+}
+
+
+
+

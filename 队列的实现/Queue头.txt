@@ -1,0 +1,26 @@
+#pragma once
+#include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
+#include <stdbool.h>
+typedef int QDataType;
+
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDataType Data;
+}QNode;
+typedef struct Queue		//用头与尾指针指向队列
+{
+	QNode* head;
+	QNode* tail;
+}Queue;
+
+void QueueInit(Queue* q);//初始化队列
+void QueueDestory(Queue* q);//销毁释放队列
+void QueuePush(Queue* q, QDataType x);//入队
+void QueuePop(Queue* q);//出队
+QDataType QueueFront(Queue* q);//取队头的元素
+QDataType QueueBack(Queue* q);//取队尾的元素
+int QueueSize(Queue* q);//计算队列的大小
+bool QueueEmpty(Queue* q);//判断队列是否为空
