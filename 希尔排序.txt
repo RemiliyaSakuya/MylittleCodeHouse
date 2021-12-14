@@ -1,0 +1,29 @@
+void ShellSort(int arr[],int n)			//本质就是先进行预排序,把前面的大数往后移,后面的小数往前移,重复直至gap到达1则同等于插入排序
+{
+	int end = 0;
+	int i = 0;
+	int gap = n;
+	while (gap > 1)
+	{
+		gap /= 2;
+		for (i = 0; i < n - gap; i++)
+		{
+			end = i;
+			int tmp = arr[end + gap];
+			while (end >= 0)
+			{
+				if (arr[end] > tmp)
+				{
+					arr[end + gap] = arr[end];
+					end-=gap;
+				}
+				else
+				{
+					break;
+				}
+			}
+			arr[end + gap] = tmp;
+		}
+	}
+	
+}
