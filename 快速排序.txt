@@ -1,0 +1,31 @@
+void QuickSort(int* arr, int left, int right)
+{
+	if (left > right)	//当left与right重合时结束递归
+		return;
+	int begin = left;
+	int end = right;
+	int pivot = left;	//初始化坑的位置
+	int key = arr[left];	//保存key的值
+	while (begin < end)
+	{
+		while (begin<end&&arr[end] > key)	//把最左边的元素取出来当key后,先让end往左走寻找比key小元素,注意begin要保持小于end否则会越界重复
+		{
+			end--;
+		}
+		arr[pivot] = arr[end];//交换pivot与end的位置
+		pivot = end;
+
+		while (begin<end &&arr[begin] < key)		//让begin往右走寻找比key大的数,注意begin要保持小于end否则会越界重复改变
+		{
+			begin++;
+		}
+		arr[pivot] = arr[begin];
+		pivot = begin;
+	}
+	pivot = begin;
+	arr[pivot] = key;		//最后left与right相遇在pivot故需要把key赋给两者其中之一
+	QuickSort(arr, left, pivot - 1);		//分治排pivot左边,不断递归
+	QuickSort(arr, pivot + 1, right);		//分治排pivot右边,不断递归
+}
+
+重点思路:理解分治算法的递归思想,不断取一个中间key值分开空间进行排序
