@@ -1,0 +1,49 @@
+void Swap(int* p1, int* p2)
+{
+	int tmp = *p1;
+	*p1 = *p2;
+	*p2 = tmp;
+}
+
+void AdjustDown(int* arr, int n,int root)
+{
+	int parent = root;
+	int child = parent * 2 + 1;			//默认孩子为左孩子,左孩子满足child=parent*2+1
+	while (child + 1 < n && child < n)		//当child为最后的节点或只存在左孩子时,结束循环
+	{
+		if (child+1<n && arr[child + 1] > arr[child])			//右孩子child+1与左孩子child比较取较小的一个
+		{
+			child = child + 1;
+		}
+		if (arr[child] > arr[parent])			//当孩子小于父亲时两节点交换
+		{
+			Swap(&arr[child], &arr[parent]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else                                  //当孩子大于等于父亲时,表明已经建好堆了直接break
+		{
+			break;
+		}
+	}
+}
+
+
+void HeapSort(int* arr, int n)
+{
+	//1.首先要把数组看作堆进行建堆,堆分为大堆和小堆,建堆需从底边开始往上进行向下调整算法建堆
+	int i = 0;
+	for (i = (n - 1-1)/2; i >= 0; i--)
+	{
+			//从孩子反推父亲
+		AdjustDown(arr, n, i);
+	}
+	//2.建好堆之后,开始从后面开始选择排序
+	int end = n - 1;
+	while (end > 0)
+	{
+		Swap(&arr[end], &arr[0]);
+		AdjustDown(arr, end, 0);
+		end--;
+	}
+}
