@@ -1,0 +1,51 @@
+void mergeSort(int* arr, int left, int right,int* tmp)
+{
+	if (left >= right)
+		return;
+	int mid = (left + right) >> 1;
+	//1.首先先递归排序
+	mergeSort(arr, left, mid, tmp);
+	mergeSort(arr, mid + 1, right, tmp);
+	//2.归并
+	int begin1 = left;		int end1 = mid;
+	int begin2 = mid + 1;	int end2 = right;
+	int index = left;
+	while (begin1 <= end1 && begin2 <= end2)		//把数组的两边分成两部分,分别用两个下标指向两部分的数组
+	{
+		if (arr[begin1] < arr[begin2])	//把begin1与begin2作比较,把小的存进tmp数组里如此循环前进
+		{
+			tmp[index] = arr[begin1];
+			index++;
+			begin1++;
+		}
+		else
+		{
+			tmp[index] = arr[begin2];
+			index++;
+			begin2++;
+		}
+	}
+	while (begin1 <= end1)			//出循环后有两种情况,一种是behin1==end1,另一种是begin2==end2,把剩下的拷进tmp中
+	{
+		tmp[index] = arr[begin1];
+		begin1++;
+		index++;
+	}
+	while (begin2 <= end2)
+	{
+		tmp[index] = arr[begin2];
+		begin2++;
+		index++;
+	}
+	int i = 0;
+	for (i = left; i <= right; i++)	//最后把tmp拷贝回去arr原数组
+	{
+		arr[i] = tmp[i];
+	}
+}
+void MergeSort(int* arr, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	mergeSort(arr, 0, n - 1, tmp);
+	free(tmp);
+}
