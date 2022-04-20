@@ -1,0 +1,16 @@
+int missingNumber(int* nums, int numsSize)
+{
+   int x=0;
+   int i=0;
+    for(i=0;i<numsSize;i++)
+    {
+        x^=nums[i];
+    }
+    int j=0;
+    for(j=0;j<numsSize+1;j++)
+    {
+        x^=j;
+    }
+    return x;
+}
+//思路：利用a^b^b=a的性质,先用0异或数组中所有的数，再让这个数异或从0到n每一个数便可以消去重复出现的元素由此可得到消失的数字
