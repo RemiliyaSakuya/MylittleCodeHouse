@@ -1,0 +1,15 @@
+//思路：本质是看成是子树问题，通过比较当前节点与左节点与右节点的数值，两次比较相同才返回真值，左节点里面又可以分成它自己的左节点与右节点不断递归
+bool isUnivalTree(struct TreeNode* root)
+{
+    if(root == NULL)
+        return true;
+    if(root->left && root->left->val != root->val)
+        return false;
+    if(root->right && root->right->val != root->val)
+        return false;
+    bool ret1=isUnivalTree(root->left);
+    bool ret2=isUnivalTree(root->right);
+    if(ret1==true && ret2==true)
+        return true;
+    return false;
+}
