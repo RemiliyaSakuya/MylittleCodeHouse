@@ -9,7 +9,7 @@ void AdjustDown(int* arr, int n,int root)
 {
 	int parent = root;
 	int child = parent * 2 + 1;			//默认孩子为左孩子,左孩子满足child=parent*2+1
-	while (child + 1 < n && child < n)		//当child为最后的节点或只存在左孩子时,结束循环
+	while (child < n)		//当child为最后的节点或只存在左孩子时,结束循环
 	{
 		if (child+1<n && arr[child + 1] > arr[child])			//右孩子child+1与左孩子child比较取较小的一个
 		{
