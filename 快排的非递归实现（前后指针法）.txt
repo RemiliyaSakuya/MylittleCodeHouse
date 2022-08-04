@@ -1,0 +1,27 @@
+//5.快排的非递归实现方法（利用数据结构的栈）
+void QuickSort4(int* a, int begin, int end)
+{
+	ST Stack;
+	StackInit(&Stack);
+	StackPush(&Stack, end);
+	StackPush(&Stack, begin);
+	while (!StackEmpty(&Stack))
+	{
+		int left = StackTop(&Stack);
+		StackPop(&Stack);
+		int right = StackTop(&Stack);
+		StackPop(&Stack);
+		int keyi = QuickSort3(a, left, right);
+		if (left < keyi-1)
+		{
+			StackPush(&Stack, keyi - 1);
+			StackPush(&Stack, left);
+		}
+		if (right > keyi + 1)
+		{
+			StackPush(&Stack, right);
+			StackPush(&Stack, keyi + 1);
+		}
+	}
+	StackDestory(&Stack);
+}
