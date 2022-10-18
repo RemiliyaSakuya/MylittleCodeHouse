@@ -1,0 +1,16 @@
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     *
+     * @param numbers int整型vector
+     * @return int整型
+     */
+    int MoreThanHalfNum_Solution(vector<int>& numbers) {
+        sort(numbers.begin(),numbers.end());
+        return numbers[numbers.size()/2];
+    }
+};
+//思路：1.把数组排序，取中间的数就是整个数组的众数
+//          2.每次消去数组中的一个众数与非众数，如果存在众数，则结果就只会留下众数（见图）
