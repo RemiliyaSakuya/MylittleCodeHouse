@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    long M,N;
+    cin >> M >> N;
+    string ret;
+    long M0=M;
+    if(M0 < 0)
+    {
+        M0=-M0;
+    }
+    long i=0;
+    long j=0;
+    string cmp("0123456789ABCDEF");
+    while(M0 != 0)
+    {
+            ret += cmp[(M0%N)];
+            i++;
+            M0 /= N;
+    }
+    if(ret.size()==0)
+    {
+        ret = "0";
+    }
+    reverse(ret.begin(),ret.end());
+    if(M < 0)
+    {
+        cout << "-" << ret << endl;
+    }
+    else
+    {
+        cout << ret<<endl;
+    }
+    return 0;
+}
