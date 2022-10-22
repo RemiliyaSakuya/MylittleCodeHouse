@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int StrToInt(string str)
+    {
+        if(str.empty())    //判空
+        {
+            return 0;
+        }
+        int sum=0;
+        int flag =1; //定义一个flag记录 正数还是负数 (1为正，0为负)
+        int i=0;
+        //首先字符串开头可能为0或者 +-号，所以先用 i下标 去指向不为 0 或者 +-号 的第一个数
+        if(str[0] == '-')
+        {
+            flag = -1;
+            i++;
+        }
+        else if(str[0] == '+')
+        {
+            i++;
+        }        //此时 i　已经指向了字符串第二个元素的位置
+        while(str[i] == '0' || (str[i] < '0' || str[i] > '9') )
+        {
+            if((str[i] < '0' || str[i] > '9'))
+            {
+                return 0;
+            }
+            i++;
+        }        //通过 i不断++去找到开头不为0且不为任意符号的数
+        //开始遍历，每次遇到合法的数字就用前面的 sum* 10 加上当前的数字
+        for(;i<str.size();i++)
+        {
+            if((str[i] < '0' || str[i] > '9'))
+            {
+                return 0;
+            }
+            sum = sum * 10 + str[i]-'0';
+        }
+        sum = sum * flag;
+        return sum;
+    }
+};
