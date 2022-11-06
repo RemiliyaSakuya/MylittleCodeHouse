@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool _JudgeWhichTree(TreeNode* root,TreeNode* target)
+    {
+        if(root == nullptr)
+            return false;
+        if(root == target)  //找到返回
+        {
+            return true;
+        }
+        return _JudgeWhichTree(root->left,target) || _JudgeWhichTree(root->right,target);    //没找到往左右树找
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        if(root == nullptr)
+            return nullptr;
+        //方法1：两个节点的最近公共祖先，必然在最近公共祖先的一个左树，一个在右树
+        //定义一个函数，查找目标节点是否在树中
+        if(root == p || root == q)
+        {
+            return root;
+        }
+        bool pRight=_JudgeWhichTree(root->right,p); //判断p是否在root右树
+        bool qLeft =_JudgeWhichTree(root->left,q); //判断q是否在root左树
+        if(pRight == true && qLeft == true)
+        {
+            //如果p与q一个左一个右那么满足
+            return root;    
+        }
+        else if(pRight == false && qLeft == false)
+        {
+            //同上
+            return root;
+        }
+        else if(pRight == true)
+        {
+            //p与q都在右，则往右树找
+            return lowestCommonAncestor(root->right,p,q);
+        }
+        else if(qLeft == true)
+        {
+            //p与q都在左，则往左树找
+            return lowestCommonAncestor(root->left,p,q);
+        }
+        //剩下就是q或p其中一个是最近公共祖先
+        return root;
+    }
+};
