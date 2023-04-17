@@ -1,0 +1,30 @@
+leetcode原题:https://leetcode.cn/problems/que-shi-de-shu-zi-lcof/
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) 
+    {
+        //二分的变形
+        int left = 0;
+        int right=nums.size()-1;
+        while(left < right)
+        {
+            int mid = (left+right)/2;
+            //如果mid指向的数等于他的索引下标，则缺失的数在他的右边
+            if(nums[mid]==mid)
+            {
+                left=mid+1;
+                continue;
+            }
+            //如果mid指向的数大于他的索引，则在他的左边
+            else if(nums[mid]>mid)
+            {
+                right = mid -1;
+                continue;
+            }
+        }
+       if(nums[left]>left)
+        return left;
+        return left+1;
+    }
+};
