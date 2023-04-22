@@ -10,6 +10,10 @@ int main()
 		printf("´ó¶Ë\n");
 	return 0;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> abe69c103d735a506e3d0dc86bc2613664c6583e
 //方法二
 用联合体进行判断
 union UN
@@ -28,4 +32,8 @@ int main()
 		printf("为大端\n");
 	}
 	return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> abe69c103d735a506e3d0dc86bc2613664c6583e
