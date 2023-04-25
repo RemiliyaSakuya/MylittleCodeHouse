@@ -1,0 +1,46 @@
+leetcode原题：https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/?envType=study-plan&id=lcof&plan=lcof&plan_progress=x9mg58ed
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) 
+    {
+        vector<vector<int>> ret;
+        if(root == nullptr)
+            return ret;
+        queue<TreeNode*> mq1;
+        queue<TreeNode*> mq2;
+        mq1.push(root);
+        while(!mq1.empty())
+        {
+            //首先对 mq2入队所有mq1中节点的左右孩子，并且对所有值入进新数组
+            vector<int> tmp; 
+            while(!mq1.empty())
+            {
+                TreeNode* cur = mq1.front();
+                if(cur->left != nullptr)
+                    mq2.push(cur->left);
+                if(cur->right != nullptr)
+                    mq2.push(cur->right);
+                tmp.push_back(cur->val);
+                mq1.pop();
+            }
+            ret.push_back(tmp);
+            //出完mq1队后，将mq2队中所有元素倒进mq1，如此循环
+            while(!mq2.empty())
+            {
+                mq1.push(mq2.front());
+                mq2.pop();
+            }
+        }
+        return ret;
+    }
+};
