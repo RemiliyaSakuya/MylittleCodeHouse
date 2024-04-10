@@ -36,6 +36,9 @@ void HeapSort(int* arr, int n)
 	for (i = (n - 1-1)/2; i >= 0; i--)
 	{
 			//从孩子反推父亲
+			//第一个叶子节点=n-1
+			//根据：child = parent*2+1
+			//所以第一个非叶子节点=((n-1)-1)/2
 		AdjustDown(arr, n, i);
 	}
 	//2.建好堆之后,开始从后面开始选择排序

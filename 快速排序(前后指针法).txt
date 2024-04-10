@@ -2,19 +2,25 @@ void QuickSort2(int* arr, int left, int right)		//前后指针法
 {
 	if (left > right)		
 		return;
-	int prev = left;		//后指针
-	int cur = prev + 1;		//前指针
+	int prev = left-1;		//后指针
+	int cur = left;		//前指针
 	int key = arr[left];
 	while (cur <= right)		//用cur<=right控制cur走的范围
 	{
-		if (arr[cur] < key)
+		if (arr[cur] <= key)
 		{
 			prev++;
 			Swap(&arr[prev], &arr[cur]);		//如果是升序,则cur寻找比key小的数,当找到时让prev++并且prev与cur交换位置(意思是把小的数往左边移)
 		}
 		cur++;		
 	}
+
+	//注意：
+	//需要交换pivot和slow指向的位置
 	Swap(&arr[prev], &arr[left]);	//当结束循环时prev指向了key应该在的中间位置所以只需要交换prev与key的位置
 	QuickSort2(arr, left, prev - 1);
+	//递归区间要在prev-1和prev+1这两段,取决于前面前后指针走的时候是否要将自己算上
+	//arr[cur] <= key ：就要在[left,prev-1]到[prev+1,right]之间
+	//arr[cur] < key:就可以在[left,prev]到[prev+1,right]之间
 	QuickSort2(arr, prev + 1, right);
 }
