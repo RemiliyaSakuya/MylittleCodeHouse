@@ -1,0 +1,40 @@
+//三路划分法
+void mysort3(vector<int>& arr, int left, int right)
+{
+    //思路：每次将整个数组划分成三大部分
+    //划分成[left,lrang]是<pivot,[lrang+1,rrang-1]是==pivot,[rrang,right]是>pivot,的三个区域
+    //把lrang看作左边区域的右边界
+    //把rrang看作右边区域的左边界
+    if (left >= right)
+        return;
+    int lrang = left-1;   
+    int i = left;
+    int rrang = right+1;
+    int pivot = arr[left];
+    //i去遍历数组
+    //[left,lrang]为0,[lrang+1,i-1]为1,[i,rrang-1]为待扫描元素,[rrang,right]
+    //1.遇到arr[i] < pivot时,扩大左边界让当前arr[i]与++lrang后交换,可以++i,因为i前面的元素已经都扫描过了,从lrang那边换上来的是可以确定
+    //2.遇到arr[i] == pivot时,不动,继续i++
+    //3.遇到arr[i] > pivot时,扩大右边界,让--rrang后与arr[i]交换,但这时不可以++i,因为右边的数还没被扫描,需要进行额外的判断
+
+    //i遇到rrang时结束
+    while (i < rrang)
+    {
+        if (arr[i] < pivot)
+        {
+            swap(arr[i++], arr[++lrang]);
+        }
+        else if (arr[i] > pivot)
+        {
+            swap(arr[i], arr[--rrang]);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    
+    //分别向[left,lrang]和[rrang,right]递归
+    mysort3(arr, left, lrang);
+    mysort3(arr, rrang, right);
+}
